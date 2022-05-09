@@ -8,7 +8,7 @@
 # would start with the base itself to identify which shard it belongs to.
 # The "insert", "get" and "overlap" methods would directly access a particular shard based on the sequence or the sequence ID.
 # The "find" method would have to search through all shards and combine together the results. But since each shard has
-# independent sequenceas, these "finds" can be performed concurrently and the results merged together when each "find worker"
+# independent sequences, these "finds" can be performed concurrently and the results merged together when each "find worker"
 # has completed their search. This sharding can easily be extended to any number of bases as the shard identifier,
 # like having 16 shards based on a shard identifier of 2 bases ("AA", "AC", etc...).
 # 
@@ -126,9 +126,6 @@ class SequenceDb:
             raise InvalidSample(sample)
         upper_sample = sample.upper()
         return [id for (id, seq) in self.database.items() if upper_sample in seq]
-        # Since matches can be found in all shards,
-        # We can simulate a parallel search across these shards, and
-        # combine the results when each "worker" provides its results
 
 
     # Validate if a sample sequence overlaps a sequence in the database.
